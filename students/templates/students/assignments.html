@@ -1,0 +1,99 @@
+{% extends 'students/base.html' %}
+
+<!-- Title Heading -->
+{% block title %}Resources{% endblock title %}
+
+<!-- Start Content Block -->
+{% block content %}
+
+<div class="container-fluid">
+    <h1>{{section.classroom.subject|upper}} : Assignments</h1>
+    <!-- Start: break 4.0 --><br>
+    <!-- End: break 4.0 -->
+    <!-- Start: Duplicate this -->
+    <div>
+
+
+        <!-- <p>
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              Link with href
+            </a>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Button with data-bs-target
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+            </div>
+          </div> -->
+        
+        <!-- Start: Collapsible Card -->
+        {% for assignment in section.assignments.all%}
+
+        <div class="card shadow">
+        <div>
+            <a class="btn  btn btn-link text-left card-header font-weight-bold" data-bs-toggle="collapse" href="#collapse-4-{{assignment.pk|slugify}}" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample">
+
+                {{assignment.title}}
+              
+            </a>
+           
+            
+        </div>
+
+          <div class="collapse"   id="collapse-4-{{assignment.pk|slugify}}">
+            <div class="card card-body">
+                <div class="card-body">
+                    <div class="alert alert-danger" role="alert"><span><strong>Deadline :&nbsp; {{assignment.deadline|date:"M d, Y"}}</strong></span></div>
+                    <p class="m-0">{{assignment.text|linebreaksbr}}</p>
+                    <!-- Start: break 4.0 -->
+                    <!-- End: break 4.0 -->
+                    <hr>
+
+                   
+                    
+
+                    <div class="row">
+                        <div class="col text-center">
+                            {% if assignment.file %}
+                            <!-- Start: Split Button Success -->
+                            <a class="btn btn-success btn-icon-split" role="button" href="{{assignment.file.url}}" download>
+                                <span class="text-white-50 icon">
+                                    <i class="fas fa-arrow-circle-down"></i>
+                                </span>
+                                <span class="text-white text">Download Assignment</span>
+                            </a>
+                            <!-- End: Split Button Success -->
+                            {% endif %}
+                        </div>
+
+                        <div class="col text-center">
+                            <!-- Start: Split Button Info -->
+                            <a class="btn btn-info btn-icon-split" role="button" href="{% url 'students:my_assignment' pk=assignment.pk %}">
+                                <span class="text-white-50 icon">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+                                <span class="text-white text">Manage Submission</span>
+                            </a>
+                            <!-- End: Split Button Info -->
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        {% endfor %}
+    </div>
+    <!-- End: Duplicate this -->
+</div>
+
+
+{% endblock content %}

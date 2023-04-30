@@ -1,0 +1,12 @@
+{% extends 'teachers/base.html' %} {% load static %}  {% block title %}Add Assignment{% endblock title %} {% block content %}
+
+<h1>Add Assignment</h1>
+<hr>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {{ form.as_p}}
+    <button type="submit" class="form-button btn btn-success">Submit</button>
+    </div>
+    </div>
+</form>
+
+{% endblock content %}
